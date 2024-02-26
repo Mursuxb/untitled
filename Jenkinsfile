@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'master', credentialsId: 'Mursuxb', url: 'https://github.com/Mursuxb/untitled'
+                git branch: 'main', credentialsId: 'Mursuxb', url: 'https://github.com/Mursuxb/untitled'
             }
         }
         stage('Build') {
