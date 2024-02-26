@@ -6,12 +6,12 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'master', credentialsId: 'Arkkaaa', url: 'https://github.com/Arkkaaa/untitled'
+                git branch: 'master', credentialsId: 'Mursuxb', url: 'https://github.com/Mursuxb/untitled'
             }
         }
         stage('Build') {
             steps {
-                bat 'mvn clean'
+                bat 'mvn clean install'
             }
         }
         stage('Test') {
