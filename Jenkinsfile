@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        PATH = "${env.PATH};C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.2\\plugins\\maven\\lib\\maven3\\bin"
+        PATH = "${env.PATH};C:\\Windows\\System32"
     }
     stages {
         stage('Checkout') {
