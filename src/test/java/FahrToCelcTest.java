@@ -1,26 +1,38 @@
-import T1.FahrToCelc;
-import org.junit.Test;
+package org.example;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
 
-public class FahrToCelcTest {
+import static junit.framework.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+
+class FahrToCelTest {
+    // initial method
     @Test
-    public void testFahrToCelc() {
-        FahrToCelc ftc = new FahrToCelc();
-        assertEquals(0.0, ftc.fahrToCelc(32.0), 0.0001);
-        assertEquals(100.0, ftc.fahrToCelc(212.0), 0.0001);
-        assertEquals(-40.0, ftc.fahrToCelc(-40.0), 0.0001);
+    void convertFahr() {
+        int test = (FahrToCel.convertFahr(32));
+
+        assertEquals(0, test);
+
     }
+
+
+    // Add in the class demo
     @Test
-    public void testKelvintoCel() {
-        assertEquals(0.0, FahrToCelc.kelvintoCel((float) 273.15), 0.0001);
-        assertEquals(-273.15, FahrToCelc.kelvintoCel(0), 0.0001);
-        assertEquals(100.0, FahrToCelc.kelvintoCel((float) 373.15), 0.0001);
+    void convertCel(){
+        int test= (FahrToCel.convertCel(20));
+        assertEquals(68,test);
     }
+
+    // Inclass exercise
     @Test
-    public void testKelvintoFahr() {
-        assertEquals(32.0, FahrToCelc.kelvintoFahr((float) 273.15), 0.0001);
-        assertEquals(-241.1499, FahrToCelc.kelvintoFahr(0), 0.0001);
-        assertEquals(132.0, FahrToCelc.kelvintoFahr((float) 373.15), 0.0001);
+    void convertKel(){
+        int test= (FahrToCel.kelvintoCel(273));
+        assertEquals(0,test);
+    }
+
+    @Test
+    void convertKeltoFarTest() {
+        double test =Math.round(FahrToCel.kelvinToFah(300.1));
+        assertEquals(59.0, test);
     }
 }
