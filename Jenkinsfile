@@ -1,27 +1,36 @@
 pipeline {
     agent any
+
     environment {
-        PATH = "${env.PATH};C:\\Windows\\System32"
+        // Define Docker Hub credentials ID
+        DOCKERHUB_CREDENTIALS_ID = 'Docker'
+        // Define Docker Hub repository name
+        DOCKERHUB_REPO = 'mursuxd/fahrtocelkelvin'
+        // Define Docker image tag
+        DOCKER_IMAGE_TAG = 'latest'
     }
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'Mursuxb', url: 'https://github.com/Mursuxb/untitled'
+                // Checkout code from Git repository
+                git branch: 'main', credentialsId: 'Mursuxb', url: 'https://github.com/Mursuxb/untitled.git'
             }
         }
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                bat '"C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.2\\plugins\\maven\\lib\\maven3\\bin\\mvn" clean install'
+                // Build Docker image
+                script {
+                    docker.build("${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}")
+                }
             }
         }
-        stage('Test') {
+        stage('Push Docker Image to Docker Hub') {
             steps {
-                bat '"C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.2\\plugins\\maven\\lib\\maven3\\bin\\mvn" test'
-            }
-            post {
-                success {
-                    junit '**/target/surefire-reports/TEST-*.xml'
-                    jacoco (execPattern: '**/target/jacoco.exec')
+                // Push Docker image to Docker Hub
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', "${DOCKERHUB_CREDENTIALS_ID}") {
+                        docker.image("${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}").push()
+                    }
                 }
             }
         }
